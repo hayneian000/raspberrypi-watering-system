@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <title>Sydney's Watering System</title>
+</head>
+<body>
+    <h1>Welcome to Sydney's Watering Hole!</h1>
+    
+    <h2>Pump Status</h2>
+    <table>
+		<tr>
+			<th>Plant</th>
+			<th>Status</th>
+			<th>Actions</th>
+		</tr>
+		{% for i, stat in enumerate(status) %}
+        <tr>
+            <td>Plant {{ i+1 }}</td>
+            <td> 
+				<span id="status-{{ i+1 }}">{{ stat }}</span> 
+			</td> 
+            <td>
+				<button onclick="controlPump({{ i+1 }}, 'on')">Turn On</button>
+				<button onclick="controlPump({{ i+1 }}, 'water')">Water</button> 
+				<button onclick="controlPump({{ i+1 }}, 'off')">Turn Off</button> 
+			</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</body>
+ <script>
+        function controlPump(plant_id, action) {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", `/manual/${plant_id}/${action}`, true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    const response = JSON.parse(xhr.responseText);
+                    document.getElementById(`status-${plant_id}`).innerText = response.status;
+                }
+            };
+            xhr.send();
+        }
+    </script>
+</html>
