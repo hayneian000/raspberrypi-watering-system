@@ -26,6 +26,12 @@ moisture_sensors = [sensor_1]
 
 app = Flask(__name__)
 
+def get_sensor_data():
+    sensor_data = []
+    for i, sensor in enumerate(moisture_sensors):
+        sensor_data.append(sensor.voltage)
+    return sensor_data
+    
 def check_moisture():
     status = []
     for i, sensor in enumerate(moisture_sensors):
@@ -48,7 +54,8 @@ def water_plant(plant_id):
 @app.route('/')
 def index():
     status = check_moisture()
-    return render_template('index.html', status=status, enumerate=enumerate)
+    sensor_data = get_sensor_data()
+    return render_template('index.html', status=status, sensor_data=sensor_data, enumerate=enumerate)
 
 @app.route('/manual/<int:plant_id>/<action>', methods=['POST'])
 def manual_control(plant_id, action):

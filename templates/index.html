@@ -14,6 +14,7 @@
 		<tr>
 			<th>Plant</th>
 			<th>Status</th>
+			<th>Moisture Level</th>
 			<th>Actions</th>
 		</tr>
 		{% for i, stat in enumerate(status) %}
@@ -21,7 +22,10 @@
             <td>Plant {{ i+1 }}</td>
             <td> 
 				<span id="status-{{ i+1 }}">{{ stat }}</span> 
-			</td> 
+			</td>
+			<td>
+				{{sensor_data[i]}}
+			</td>
             <td>
 				<button onclick="controlPump({{ i+1 }}, 'on')">Turn On</button>
 				<button onclick="controlPump({{ i+1 }}, 'water')">Water</button> 
