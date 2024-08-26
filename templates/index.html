@@ -8,8 +8,10 @@
 </head>
 <body>
     <h1>Welcome to Sydney's Watering Hole!</h1>
-    
-    <h2>Pump Status</h2>
+    <div id="tableTitle">
+		<h2>Plant Status</h2>
+		
+    </div>
     <table>
 		<tr>
 			<th>Plant</th>
@@ -24,7 +26,8 @@
 				<span id="status-{{ i+1 }}">{{ stat }}</span> 
 			</td>
 			<td>
-				{{sensor_data[i]}}
+				<span id="data-{{ i+1 }}">{{sensor_data[i]}}</span> 
+				<button onclick="refresh({{ i+1 }})">Refresh</button></button>
 			</td>
             <td>
 				<button onclick="controlPump({{ i+1 }}, 'on')">Turn On</button>
@@ -49,5 +52,17 @@
             };
             xhr.send();
         }
+        function refresh(plant_id){
+			const xhr = new XMLHttpRequest();
+			xhr.open("POST", `/refresh/${plant_id}`, true);
+			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    const response = JSON.parse(xhr.responseText);
+                    document.getElementById(`data-${plant_id}`).innerText = response.data;
+                }
+            };
+            xhr.send();
+		}
     </script>
 </html>

@@ -29,7 +29,7 @@ app = Flask(__name__)
 def get_sensor_data():
     sensor_data = []
     for i, sensor in enumerate(moisture_sensors):
-        sensor_data.append(sensor.voltage)
+        sensor_data.append(round(sensor.voltage,4))
     return sensor_data
     
 def check_moisture():
@@ -72,6 +72,11 @@ def manual_control(plant_id, action):
         status = "Invalid action"
     
     return jsonify({"status": status})
+
+@app.route('/refresh/<int:plant_id>', methods=['POST'])
+def refresh(plant_id):
+    data = moisture_sensors[plant_id-1].voltage
+    return jsonify({"data": round(data,4)})
 
 if __name__ == '__main__':
     try:

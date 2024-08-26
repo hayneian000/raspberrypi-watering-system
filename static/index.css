@@ -55,6 +55,11 @@ tr:hover {
 	background-color: #e8e4d8;
 }
 
-
+#tableTitle {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 10px;
+}
 
 
