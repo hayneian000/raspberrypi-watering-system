@@ -9,7 +9,7 @@ This project is an **automatic watering system** powered by a Raspberry Pi. It m
 3. [Installation](#installation)
 
 ## Project Features
-- **Moisture Sensing**: The system continuously monitors soil moisture levels using a sensor.
+- **Moisture Sensing**: Using a sensor, the system continuously monitors soil moisture levels.
 - **Automated Watering**: When the soil is dry, the Raspberry Pi triggers the water pump to water the plants.
 - **Customization**: Easily adjust moisture thresholds and watering intervals.
 
@@ -17,6 +17,7 @@ This project is an **automatic watering system** powered by a Raspberry Pi. It m
 - Raspberry Pi (any model)
 - Soil moisture sensor
 - Water pump
+- Tubing (carries water from the pump to the plant)
 - Relay module (to control the pump)
 - Wires
 - Breadboard
@@ -39,10 +40,10 @@ This project is an **automatic watering system** powered by a Raspberry Pi. It m
 
 
 ## Usage
-Once the script is running, the Raspberry Pi will monitor the soil moisture in real-time.
+Once the script is running, the Raspberry Pi will monitor the soil moisture in real time.
 If the soil is dry, the water pump will be activated automatically to water the plants.
 Adjust settings in the config.py file to control the moisture threshold and watering intervals.
-You can automattically turn on the pumps via the webserver. You can also monitor the pumps to see when they last watered via this web server. 
+The web server allows you to manually turn on the pumps and monitor them. 
 
 
 
